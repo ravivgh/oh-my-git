@@ -1,0 +1,20 @@
+{
+  "name": "oh-my-git",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ravi Vaghela",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "enquirer": "^2.4.1",
+    "inquirer": "^12.7.0",
+    "nodemon": "^3.1.10",
+    "ora": "^8.2.0"
+  }
+}

@@ -10,7 +10,7 @@ import {
   promptGitPush,
 } from "./cli/prompts.js";
 import chalk from "chalk";
-
+import { execSync } from "child_process";
 displayLogo();
 
 const gitUserName = await getGitUsername();

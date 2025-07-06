@@ -6,6 +6,7 @@ import {
   promptAddFile,
   promptCommitMessage,
   promptAddRemoteOrigin,
+  promptGitPush,
 } from "./cli/prompts.js";
 import chalk from "chalk";
 
@@ -46,10 +47,45 @@ switch (selected) {
     const { remoteUrl } = await promptAddRemoteOrigin();
     runGitCommand(
       `git remote add origin ${remoteUrl}`,
-      `✔ Remote origin set to: ${remoteUrl}`,
+      `Remote origin set to: ${remoteUrl}`,
       "✖ Failed to set remote origin"
     );
     break;
+  case "push":
+    const { branch } = await promptGitPush();
+
+    let hasUpstream = false;
+
+    try {
+      const branchInfo = execSync("git branch -vv", { encoding: "utf8" });
+      const lines = branchInfo.split("\n");
+      const match = lines.find(
+        (line) => line.includes(` ${branch} `) || line.startsWith(`* ${branch}`)
+      );
+
+      if (match && match.includes("[origin/")) {
+        hasUpstream = true;
+        spinner.succeed(`✔ Upstream already set for '${branch}'`);
+      } else {
+        spinner.warn(`⚠ No upstream found for '${branch}'`);
+      }
+    } catch (err) {
+      spinner.fail("✖ Failed to check upstream");
+      console.error(err.message);
+    }
+
+    const pushCommand = hasUpstream
+      ? `git push`
+      : `git push -u origin ${branch}`;
+
+    runGitCommand(
+      pushCommand,
+      `✔ Code pushed using "${pushCommand}"`,
+      `✖ Push failed using "${pushCommand}"`
+    );
+
+    break;
+
   case "exit":
     console.log(chalk.cyan("Exiting CLI..."));
     process.exit(0);

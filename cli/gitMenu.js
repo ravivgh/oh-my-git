@@ -12,6 +12,10 @@ export default async function gitMenu() {
       { name: "commit", message: "Commit with message (git commit -m)" },
       {
         name: "addRemote",
+        message: "Push to remote (git push or git push -u)",
+      },
+      {
+        name: "push",
         message: "Add remote origin (git remote add origin)",
       },
       { name: "exit", message: "Exit" },

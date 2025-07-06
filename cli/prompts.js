@@ -30,3 +30,13 @@ export async function promptAddRemoteOrigin() {
       "Enter a valid remote URL",
   });
 }
+
+export async function promptGitPush() {
+  return await prompt({
+    type: "input",
+    name: "branch",
+    message: "Enter branch to push (e.g. main):",
+    initial: "main",
+    validate: (value) => value.trim() !== "" || "Branch name cannot be empty!",
+  });
+}

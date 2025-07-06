@@ -1,3 +1,4 @@
+import ora from "ora";
 import displayLogo from "./cli/banner.js";
 import getGitUsername from "./cli/getGitUsername.js";
 import gitMenu from "./cli/gitMenu.js";
@@ -54,6 +55,7 @@ switch (selected) {
   case "push":
     const { branch } = await promptGitPush();
 
+    const spinner = ora("Checking upstream...").start();
     let hasUpstream = false;
 
     try {

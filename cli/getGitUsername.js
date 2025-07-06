@@ -2,7 +2,6 @@ import chalk from "chalk";
 import boxen from "boxen";
 import { execSync } from "child_process";
 import enquirerPkg from "enquirer";
-
 const { prompt } = enquirerPkg;
 
 export default async function getGitUsername() {
